@@ -9,10 +9,10 @@ var router = express.Router();
 
 //add a new developer to the db
 router.post("/createProfile", (req, res, next)=>{
-    //creates and saves a user to the db
+    //creates and saves a user to the db, according to the User model
     Users.create(req.body).then(newUser=>{
-        res.send(newUser);//something needs to be sent
-    }).catch(next);//to move to the next middleware, which is the error handler
+        res.send(newUser);  //something needs to be sent
+    }).catch(next);  //to move to the next middleware, which is the error handler
 });
 
 
@@ -22,6 +22,7 @@ router.post("/createProfile", (req, res, next)=>{
 
 // authorizing the user
 router.post("/auth", (req, res)=>{
+    // Trying to find a user with the given name
     Users.findOne({name: req.body.name}, (err, user)=>{
         var userDetails; // this will be sent to the client
         if(user){ // if a user with that username was found in the Users collection
