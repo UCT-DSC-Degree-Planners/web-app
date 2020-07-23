@@ -40,7 +40,7 @@ router.post("/auth", (req, res)=>{
                 }
             }
         }
-        // if the user is not found in the Admins collection
+        // if the user is not found in the users collection
         else{
             userDetails = {
                 name: null, 
