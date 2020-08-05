@@ -3,6 +3,7 @@
 
 const express = require("express");
 const mongoose = require('mongoose');
+const path = require("path");
 
 //taking care of all deprecation warnings
 mongoose.set('useNewUrlParser', true);
@@ -25,9 +26,13 @@ mongoose.connection.once('open', ()=> {
 //setting up express app
 const app = express();
 
-//middleware to serve static files (html, css, images)
-//this has to come first
-app.use(express.static("../web-front/public"));
+// Allowing requests from other locations (not just localhost:80). This iwill be removed in production
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
+
 
 //attaches the parser to the req object in the REQUESTS
 //this can only handle json
@@ -43,8 +48,24 @@ app.use((err, req, res, next)=>{
 });
 
 
-//listening to a port
-//the first option is in case we're not using the local host
-app.listen(process.env.port || 3000, ()=>{
-    console.log('Now listening to requests');
+//#region ignore this for now 
+if (process.env.NODE_ENV === 'production') {
+    //middleware to serve static files (html, css, images)
+    //this has to come first
+    app.use(express.static("../web-front/public"));
+
+    // sending the default html file if in production
+    app.use((req, res)=>{
+        res.sendFile(path.resolve(__dirname, '..', 'web-front', 'build', 'index.html'));
+    })
+}
+//#endregion
+
+const port = 80;
+// const hostname = "localhost";
+
+// listening to a port
+// the first option is in case we're not using the localhost
+app.listen(process.env.PORT || port, ()=>{
+    console.log('Now listening to requests port', port);
 });
