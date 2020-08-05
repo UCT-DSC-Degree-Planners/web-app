@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-Build
+
+# Fires on any push or pull request
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # image
+    strategy:
+      node-version: 12.x
+
+    steps:
+      # Checks-out the repo's current commit/PR
+      - uses: actions/checkout@v2
+
+      - name: Use NodeJS ${{node-version}}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{node-version}}
+
+      - name: Cache node modules (frontend)
+          uses: actions/cache@v2
+          env:
+            cache-name: cache-node-modules-front
+          with:
+            path: web-front/node_modules
+            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-front/**/package-lock.json') }}
+            restore-keys: |  # search in case of cache miss
+              ${{ runner.os }}-build-${{ env.cache-name }}-
+              ${{ runner.os }}-build-
+              ${{ runner.os }}-
+
+      - name: Cache node modules (backend)
+          uses: actions/cache@v2
+          env:
+            cache-name: cache-node-modules-back
+          with:
+            path: web-back/node_modules
+            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-back/**/package-lock.json') }}
+            restore-keys: |  # search in case of cache miss
+              ${{ runner.os }}-build-${{ env.cache-name }}-
+              ${{ runner.os }}-build-
+              ${{ runner.os }}-
+
+      - name: Frontend build
+        run: |
+          cd web-front
+          npm ci
+          npm run build
+
+      - name: Upload frontend artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-artifacts
+          path: build/**
+
+      # Runs a set of commands using the runners shell
+      - name: Backend syntax check
+        run: |
+          cd ../web-back
+          npm run check-syntax
