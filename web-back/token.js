@@ -17,7 +17,7 @@ Users.findOneAndUpdate({name: userDetails.name},{token: Math.random()*10000})//
 
 router.get('/get_courses', function(req,res,next) {
   Users.findOne({name: userDetails.name}, (err, user)=>{
-
+// the if statement checks if the user is logged in before rendering a request
        if (user.token !== 0){
          render('courses')
        }
