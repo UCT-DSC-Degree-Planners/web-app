@@ -58,10 +58,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: frontend-artifacts
-          path: build/**
+          path: web-front/build/**
 
       # Runs a set of commands using the runners shell
       - name: Backend syntax check
         run: |
-          cd ../web-back
+          cd web-back
           npm run check-syntax
