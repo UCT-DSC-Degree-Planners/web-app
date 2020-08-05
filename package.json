@@ -1,0 +1,30 @@
+{
+  "name": "web-app",
+  "version": "0.0.2",
+  "description": "A degree planner web- app",
+  "main": "/web-back/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run-p \"start --prefix web-front\" \"start --prefix web-back\"",
+    "all1": "concurrently \"npm start --prefix web-front\" \"npm start --prefix web-back\"",
+    "all": "node all.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UCT-DSC-Degree-Planners/web-app.git"
+  },
+  "keywords": [
+    "degree",
+    "planner"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UCT-DSC-Degree-Planners/web-app/issues"
+  },
+  "homepage": "https://github.com/UCT-DSC-Degree-Planners/web-app#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "npm-run-all": "^4.1.5"
+  }
+}
