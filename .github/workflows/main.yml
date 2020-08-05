@@ -23,28 +23,28 @@ jobs:
           node-version: ${{node-version}}
 
       - name: Cache node modules (frontend)
-          uses: actions/cache@v2
-          env:
-            cache-name: cache-node-modules-front
-          with:
-            path: web-front/node_modules
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-front/**/package-lock.json') }}
-            restore-keys: |  # search in case of cache miss
-              ${{ runner.os }}-build-${{ env.cache-name }}-
-              ${{ runner.os }}-build-
-              ${{ runner.os }}-
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-front
+        with:
+          path: web-front/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-front/**/package-lock.json') }}
+          restore-keys: |  # search in case of cache miss
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Cache node modules (backend)
-          uses: actions/cache@v2
-          env:
-            cache-name: cache-node-modules-back
-          with:
-            path: web-back/node_modules
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-back/**/package-lock.json') }}
-            restore-keys: |  # search in case of cache miss
-              ${{ runner.os }}-build-${{ env.cache-name }}-
-              ${{ runner.os }}-build-
-              ${{ runner.os }}-
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-back
+        with:
+          path: web-back/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('web-back/**/package-lock.json') }}
+          restore-keys: |  # search in case of cache miss
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Frontend build
         run: |
