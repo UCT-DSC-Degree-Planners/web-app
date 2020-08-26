@@ -15,6 +15,13 @@ var UserSchema = new mongoose.Schema({
         required: true
     },
 
+    // the token that will be used for authenthication and security
+    token: {
+        type: Number,
+        required: true, 
+        default: 0,
+    }
+
 });
 
 var User = mongoose.model('user', UserSchema);
