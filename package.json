@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "run-p \"start --prefix web-front\" \"start --prefix web-back\"",
-    "all1": "concurrently \"npm start --prefix web-front\" \"npm start --prefix web-back\"",
+    "back": "\"npm start --prefix web-back\"",
+    "front": "\"npm start --prefix web-front\"",
+    "all1": "concurrently \"npm start --prefix web-front\" \"npm start --prefix web-front\"",
     "all": "node all.js"
   },
   "repository": {
