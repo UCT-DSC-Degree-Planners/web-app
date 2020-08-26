@@ -1,5 +1,5 @@
-const mongoose = require('mongoose0')
-mongoose.connect("mongodb+srv://everyone:everyone@degreeplanner.xvijs.gcp.mongodb.net/DegreePlanner?retryWrites=true&w=majority");
+// const mongoose = require('mongoose0')
+// mongoose.connect("mongodb+srv://everyone:everyone@degreeplanner.xvijs.gcp.mongodb.net/DegreePlanner?retryWrites=true&w=majority");
 
 //once it has connected
 mongoose.connection.once('open', ()=> {

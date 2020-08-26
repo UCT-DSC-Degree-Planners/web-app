@@ -40,7 +40,7 @@ class App extends React.Component {
     var name = this.usernameInput.current.value;
     var password = this.passwordInput.current.value;
 
-    // the data to be sent to the server for authentication 
+    // the data to be sent to the server for authentication. If token is 0 the user has not logged in 
     var loginDetails = {
             name: name,
             password: password,
