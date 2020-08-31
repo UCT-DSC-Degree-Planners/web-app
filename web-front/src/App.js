@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginPage from './components/LoginPage';
 import './App.css';
+import Registration from './components/Registration';
 
 class App extends React.Component {
   constructor(props){
@@ -27,6 +28,7 @@ class App extends React.Component {
           usernameInput = {this.usernameInput}
           passwordInput = {this.passwordInput}
         />
+        <Registration/>
 
       </div>
     );
